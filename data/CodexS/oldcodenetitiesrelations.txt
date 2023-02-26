@@ -1,0 +1,39 @@
+
+!dir
+
+#Generating entities.dict and relations.dict files for all models (all models yes)
+from load_data import Data
+
+DataObject = Data(data_dir="data/FB15k-237/", reverse=False)
+
+
+relations = DataObject.relations
+entities = DataObject.entities
+
+relationdict = { i : relations[i] for i in range(0, len(relations) ) }
+f = open("relations.dict", "w")
+f.write("{\n")
+for k in relationdict.keys():
+    f.write("'{}':'{}'\n".format(k, relationdict[k]))
+f.write("}")
+f.close()
+
+entitydict = { i : entities[i] for i in range(0, len(entities) ) }
+f = open("entities.dict", "w")
+f.write("{\n")
+for k in entitydict.keys():
+    f.write("'{}':'{}'\n".format(k, entitydict[k]))
+f.write("}")
+f.close()
+
+#Manually removed "{" "}" "'" replaced ":" with a tab
+
+
+#f = open("entities.dict", "a")
+#f.write(str(entitydict))
+#f.close()
+
+
+#f = open("relations.dict", "a")
+#f.write(str(relationdict))
+#f.close()
